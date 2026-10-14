@@ -1,4 +1,18 @@
-<div dir="rtl" align="right">
+<style>
+    div[dir="rtl"] p,
+    div[dir="rtl"] li,
+    div[dir="rtl"] h1,
+    div[dir="rtl"] h2,
+    div[dir="rtl"] h3 {
+    unicode-bidi: plaintext;
+    },
+  div[dir="rtl"] pre,
+  div[dir="rtl"] code {
+    direction: ltr;
+    text-align: left;
+    unicode-bidi: embed;
+  }
+</style>
 
 ## سوال اول: Merge و Rebase
 
