@@ -1,0 +1,18 @@
+services:
+  # reachable from everywhere: this is the authenticated entry point
+  proxy:
+    build: .
+    ports:
+      - "${HTTP_PORT}:80"
+    env_file: .env
+    depends_on:
+      - httpbin
+
+  # legacy service: published ONLY on the LAN address (never 0.0.0.0),
+  # so people on the internal network can use it directly without a JWT
+  httpbin:
+    image: ghcr.io/mccutchen/go-httpbin
+    environment:
+      PORT: ${UPSTREAM_PORT}
+    ports:
+      - "${LAN_ADDRESS:-127.0.0.1}:${UPSTREAM_PORT}:${UPSTREAM_PORT}"

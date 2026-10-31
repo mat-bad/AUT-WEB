@@ -1,0 +1,15 @@
+{
+	# register the jwtauth directive from the caddy-jwt module
+	order jwtauth before basicauth
+}
+
+:80 {
+	# every request needs a valid "Authorization: Bearer <JWT>", otherwise 401
+	jwtauth {
+		sign_key {$JWT_SIGN_KEY}
+		sign_alg HS256
+		from_header Authorization
+	}
+
+	reverse_proxy httpbin:{$UPSTREAM_PORT}
+}
